@@ -1,0 +1,21 @@
+version: "3.4"
+
+services:
+  api_123milhas_devel:
+    image: api_123milhas_devel:latest
+    container_name: api_123milhas_container_devel
+    build:
+      context: .
+      dockerfile: ./.docker/Dockerfile
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "20m"
+        max-file: "5"
+    restart: always
+    env_file:
+      - .env
+    ports:
+      - 4000:4000
+    volumes:
+      - ".:/web"
