@@ -1,0 +1,14 @@
+version: "3.4"
+
+services:
+  api_123milhas_prod:
+    image: duarte007/api_123milhas_prod:latest
+    container_name: api_123milhas_container_prod
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "20m"
+        max-file: "5"
+    restart: always
+    ports:
+      - 4000:4000
