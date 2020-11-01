@@ -1,0 +1,9 @@
+.env
+dist/
+build/
+prod/
+node_modules/
+.vscode/
+backup_sale.ts
+__tests__/coverage
+.vscode
