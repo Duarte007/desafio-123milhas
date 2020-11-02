@@ -1,6 +1,7 @@
 **Utilizar API pelo docker**
 
 > docker pull duarte007/api_123milhas_prod:latest
+
 > docker run -p 4000:4000 duarte007/api_123milhas_prod
 
 **Utilizar API pelo docker-compose**
@@ -18,6 +19,7 @@ Para utulizar a API com docker-compose basta utilizar o arquivo .yml `docker-com
 ou
 
 > npm run build
+
 > npm run prod
 
 **Como utilizar**
