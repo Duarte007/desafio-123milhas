@@ -11,6 +11,4 @@ routes.get("/allFlights", FlightController.getFlights);
 
 routes.get("/groupedFlights", FlightController.groupedFlights);
 
-
-
 export default routes;

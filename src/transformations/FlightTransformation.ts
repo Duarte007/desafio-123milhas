@@ -25,7 +25,7 @@ class FlightTransformation {
   }
 
   /**
-   * getCheapestGroup
+   * Busca o voo com menor preço.
    */
   public getCheapestGroup(flights: IGroupFlight[]): ICheapest {
     let aux = Number.MAX_VALUE;
@@ -43,7 +43,7 @@ class FlightTransformation {
   }
 
   /**
-   * sortGroups
+   * Realiza a ordenação dos voos pelo preço.
    */
   public sortGroups(groups: IGroupFlight[]) {
     return groups.sort((a: IGroupFlight, b: IGroupFlight) => {

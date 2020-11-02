@@ -9,7 +9,7 @@ import {
 
 class FlightController {
   /**
-   * getFlights
+   * Busca voos pela api da 123milhas
    */
   public getFlights = async (req: Request, res: Response) => {
     console.log("Buscando voos");
@@ -19,7 +19,10 @@ class FlightController {
   };
 
   /**
-   * groupedFlights
+   * Busca voos pela api da 123milhas e faz o agrupamento proposto.
+   * Foi feita a separação por voos de ida e voos de volta, depois houve a busca das
+   * taxas dos voos de ida para criar os grupos.
+   *  
    */
   public groupedFlights = async (req: Request, res: Response) => {
     console.log("Buscando voos agrupados");
@@ -55,7 +58,10 @@ class FlightController {
   };
 
   /**
-   * getFLightsByFareAndPrice
+   * Função responsável pela lógica do agrupamento. Percorre todas as taxas 
+   * e para cada taxa busca os voos, faz um distinct de voos por preço, busca
+   * todos os voos com o mesmo preço (ida e volta), e então cria o grupo fazendo
+   * todas as combinações possíveis.
    */
   public getFlightsByFareAndPrice = (
     fares: string[],
@@ -96,6 +102,10 @@ class FlightController {
           result = [
             ...result,
             {
+              // Utilizei o id de forma dinâmica para não usar 
+              // nenhum tipo de banco de dados para armazenamento.
+              // Por isso também não disponibilizei nenhum tipo de filtro para
+              // rota de agrupamento.
               uniqueId: i,
               totalPrice: outFlight.price + inFlight.price,
               outbound: groupedOutByPrice.length
@@ -113,7 +123,7 @@ class FlightController {
   };
 
   /**
-   * groupFLightsByPrice
+   * Realiza o agrupamento dos voos com mesmo preço.
    */
   public groupFlightsByPrice(
     fligthsByFare: IFlight[],
@@ -131,7 +141,7 @@ class FlightController {
   }
 
   /**
-   * getDistinctFlightsByPrice
+   * Retorna todos os voos com preços distintos.
    */
   public getDistinctFlightsByPrice(flights: IFlight[]) {
     let prices: number[] = [];
