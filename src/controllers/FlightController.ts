@@ -1,12 +1,18 @@
 import { Request, Response } from "express";
 import FlightModel from "../models/Flight";
 import FlightTransformation from "../transformations/FlightTransformation";
+import {
+  IFlight,
+  IGroupFlight,
+  IIdFlight,
+} from "../interfaces/flightInterface";
 
 class FlightController {
   /**
    * getFlights
    */
   public getFlights = async (req: Request, res: Response) => {
+    console.log("Buscando voos");
     const flights = await FlightModel.getAll();
 
     return res.status(200).json(flights);
@@ -16,14 +22,15 @@ class FlightController {
    * groupedFlights
    */
   public groupedFlights = async (req: Request, res: Response) => {
+    console.log("Buscando voos agrupados");
     const flights = await FlightModel.getAll();
 
-    const outboundFlights = flights.filter((f: any) => f.outbound === 1);
+    const outboundFlights = flights.filter((f: IFlight) => f.outbound === 1);
 
-    const inboundFlights = flights.filter((f: any) => f.inbound === 1);
+    const inboundFlights = flights.filter((f: IFlight) => f.inbound === 1);
 
     const flightsFares = outboundFlights.reduce(
-      (acc: any, currentFlight: any) => {
+      (acc: any, currentFlight: IFlight) => {
         if (!acc.length) return [currentFlight.fare];
         if (!acc.includes(currentFlight.fare))
           return [...acc, currentFlight.fare];
@@ -39,7 +46,10 @@ class FlightController {
       inboundFlights
     );
 
-    const formatedFlights = FlightTransformation.transform(flights, groupedFligts);
+    const formatedFlights = FlightTransformation.transform(
+      flights,
+      groupedFligts
+    );
 
     return res.status(200).json(formatedFlights);
   };
@@ -48,20 +58,19 @@ class FlightController {
    * getFLightsByFareAndPrice
    */
   public getFlightsByFareAndPrice = (
-    fares: any,
-    outboundFlights: any,
-    inboundFlights: any
+    fares: string[],
+    outboundFlights: IFlight[],
+    inboundFlights: IFlight[]
   ) => {
-    let result: any = [];
+    let result: IGroupFlight[] = [];
     let i = 0;
-    fares.forEach((fare: any) => {
-      let prices: any = [];
+    fares.forEach((fare: string) => {
       const outFlightsByFare = outboundFlights.filter(
-        (f: any) => f.fare === fare
+        (f: IFlight) => f.fare === fare
       );
 
       const inFlightsByFare = inboundFlights.filter(
-        (f: any) => f.fare === fare
+        (f: IFlight) => f.fare === fare
       );
 
       const distinctOutFlightsByPrice = this.getDistinctFlightsByPrice(
@@ -72,13 +81,13 @@ class FlightController {
         inFlightsByFare
       );
 
-      distinctOutFlightsByPrice.forEach((outFlight: any) => {
+      distinctOutFlightsByPrice.forEach((outFlight: IFlight) => {
         const groupedOutByPrice = this.groupFlightsByPrice(
           outFlightsByFare,
           outFlight
         );
 
-        distinctInFlightsByPrice.forEach((inFlight: any) => {
+        distinctInFlightsByPrice.forEach((inFlight: IFlight) => {
           const groupedInByPrice = this.groupFlightsByPrice(
             inFlightsByFare,
             inFlight
@@ -106,8 +115,11 @@ class FlightController {
   /**
    * groupFLightsByPrice
    */
-  public groupFlightsByPrice(fligthsByFare: any, currentFlight: any): any {
-    return fligthsByFare.reduce((acc: any, current: any) => {
+  public groupFlightsByPrice(
+    fligthsByFare: IFlight[],
+    currentFlight: IFlight
+  ): IIdFlight[] {
+    return fligthsByFare.reduce((acc: IIdFlight[], current: IFlight) => {
       if (current.price === currentFlight.price) {
         if (!acc.length) return [{ id: current.id }];
 
@@ -121,10 +133,10 @@ class FlightController {
   /**
    * getDistinctFlightsByPrice
    */
-  public getDistinctFlightsByPrice(flights: any) {
-    let prices: any = [];
+  public getDistinctFlightsByPrice(flights: IFlight[]) {
+    let prices: number[] = [];
 
-    return flights.reduce((acc: any, f: any) => {
+    return flights.reduce((acc: IFlight[], f: IFlight) => {
       if (!prices.includes(f.price)) {
         prices = [...prices, f.price];
         return acc.length ? [...acc, f] : [f];
@@ -132,7 +144,6 @@ class FlightController {
       return acc;
     }, []);
   }
-
 }
 
 export default new FlightController();

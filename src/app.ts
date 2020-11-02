@@ -26,13 +26,6 @@ class App {
       rateLimit({
         windowMs: 3 * 60 * 1000, // 3 minutos
         max: 200,
-        keyGenerator: function (req) {
-          if (req.headers.authorization) {
-            return req.headers.authorization;
-          } else {
-            return req.ip;
-          }
-        },
       })
     );
   }
