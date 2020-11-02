@@ -6,7 +6,7 @@
 
 **Utilizar API pelo docker-compose**
 
-Para utulizar a API com docker-compose basta utilizar o arquivo .yml `docker-compose-prod.yml`
+Para utilizar a API com docker-compose basta utilizar o arquivo .yml `docker-compose-prod.yml`
 
 > docker-compose -f docker-compose-prod.yml pull
 
