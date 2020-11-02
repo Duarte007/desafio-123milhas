@@ -6,6 +6,7 @@
   "scripts": {
     "dev": "nodemon src/index.ts --signal SIGTERM",
     "build": "tsc --build && gulp",
+    "prod": "node prod/index.js",
     "lint": "eslint \"**/*.ts\" --ignore-pattern node_modules/ --fix"
   },
   "author": "",
