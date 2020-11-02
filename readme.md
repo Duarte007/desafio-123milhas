@@ -22,7 +22,7 @@ ou
 
 **Como utilizar**
 
-Por default a API roda na porta 4000, caso queira utilizá0la em outra porta
+Por default a API roda na porta 4000, caso queira utilizá-la em outra porta
 basta criar um arquivo .env na raiz do projeto e especificar a variável PORT.
 
 Existem duas rodas disponíveis:
