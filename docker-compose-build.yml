@@ -1,9 +1,9 @@
 version: "3.4"
 
 services:
-  api_123milhas_prod:
-    image: api_123milhas_prod:latest
-    container_name: api_123milhas_container_prod
+  api_123milhas_build:
+    image: api_123milhas_build:latest
+    container_name: api_123milhas_container_build
     build:
       context: .
       dockerfile: ./.docker/build.Dockerfile

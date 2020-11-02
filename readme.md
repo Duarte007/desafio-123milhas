@@ -3,6 +3,14 @@
 > docker pull duarte007/api_123milhas_prod:latest
 > docker run -p 4000:4000 duarte007/api_123milhas_prod
 
+**Utilizar API pelo docker-compose**
+
+Para utulizar a API com docker-compose basta utilizar o arquivo .yml `docker-compose-prod.yml`
+
+> docker-compose -f docker-compose-prod.yml pull
+
+> docker-compose -f docker-compose-prod.yml up -d
+
 **Caso não possua docker**
 
 > npm run dev (para rodar com nodemon)
