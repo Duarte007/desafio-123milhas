@@ -27,7 +27,7 @@ ou
 Por default a API roda na porta 4000, caso queira utilizá-la em outra porta
 basta criar um arquivo .env na raiz do projeto e especificar a variável PORT.
 
-Existem duas rodas disponíveis:
+Existem duas rotas disponíveis:
 
 - /allFlights - Responsável por buscar todas as rotas, como a da API disponibilizada.
 
