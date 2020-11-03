@@ -109,11 +109,11 @@ class FlightController {
               uniqueId: i,
               totalPrice: outFlight.price + inFlight.price,
               outbound: groupedOutByPrice.length
-                ? { ...groupedOutByPrice }
-                : { outFlight },
+                ? [ ...groupedOutByPrice ]
+                : [ outFlight ],
               inbound: groupedInByPrice.length
-                ? { ...groupedInByPrice }
-                : { inFlight },
+                ? [ ...groupedInByPrice ]
+                : [ inFlight ],
             },
           ];
         });
